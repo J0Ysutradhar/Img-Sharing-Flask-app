@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Sharing</title>
+    <meta name="description" content="This website is for sharing images for free. Website author is Joy Sutradhar.">
+    <title>MyPic</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #d7e7ff;
+            background-color: #dcf1ff;
         }
         .container {
             margin-top: 50px;
@@ -24,8 +25,8 @@
             margin-bottom: 30px;
         }
         .footer {
-            background-color: #0e1923d3;
-            color: white;
+            background-color: #131f2e;
+            color: rgb(227, 227, 255);
             padding: 10px 0;
             text-align: center;
             position: fixed;
@@ -36,28 +37,29 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Image Sharing</a>
+        <a class="navbar-brand" href="#">MyPic</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Upload</a>
-                </li>
+                    <a class="nav-link" href="mailto:joysutradharpc@gmail.com">Contact</a>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="/">Upload</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
+       <h4>MyPic</h4>
+       <h5>is a image sharing website. You can upload your images here for free.</h5>
         <div class="card">
             <h1 class="card-title">Upload an Image</h1>
             <form action="/upload" method="post" enctype="multipart/form-data">
@@ -81,13 +83,19 @@
         {% if file_url %}
         <div class="card mt-4">
             <h2 class="card-title">Uploaded File</h2>
-            <p>Your file has been uploaded successfully. You can access it <a href="{{ file_url }}" target="_blank">here</a>.</p>
+            <p>Your file has been uploaded successfully. You can access it <a href="{{ file_url }}" target="_blank">here</a></p>
+            <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid mt-3" height="200 px" width="300 px">
         </div>
         {% endif %}
     </div>
     <footer class="footer">
         <div class="container">
-            <span>&copy; 2023 Image Sharing. All rights reserved.</span>
+            <span>&copy; 2025 MyPic. All rights reserved. Author: Joy Sutradhar
+                <a href="mailto:joysutradharpc@gmail.com">Send email</a>
+            </Address></span>
+            <!-- <span><Address>Author: Joy Sutradhar
+                <a href="mailto:joysutradharpc@gmail.com">Send email</a>
+            </Address></span> -->
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
