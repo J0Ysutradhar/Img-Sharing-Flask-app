@@ -19,7 +19,7 @@ MyPic is a web application for sharing images for free. The website allows users
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/mypic.git
+    git clone https://github.com/J0Ysutradhar/Img-Sharing-Flask-app.git
     cd mypic
     ```
 
@@ -44,7 +44,7 @@ MyPic is a web application for sharing images for free. The website allows users
 
 ## Configuration
 
-1. Set the secret key and upload folder in [app.py](http://_vscodecontentref_/0):
+1. Set the secret key and upload folder in app.py:
 
     ```python
     app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -63,7 +63,7 @@ MyPic is a web application for sharing images for free. The website allows users
 
 ## Project Structure
 
-- [app.py](http://_vscodecontentref_/1): The main Flask application file.
+-  app.py: The main Flask application file.
 - `requirements.txt`: Contains the list of Python packages required for the project.
 - `templates/`: Contains the HTML templates for the application.
 - `uploads/`: Directory where uploaded images are stored.
