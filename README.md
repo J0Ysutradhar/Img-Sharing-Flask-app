@@ -80,7 +80,7 @@ MyPic is a web application for sharing images for free. The website allows users
 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-##Deployment code (VPS)
+#Deployment code (VPS)
 
 - cd /srv/mypics
 - git pull
