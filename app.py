@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from werkzeug.utils import secure_filename
 import os
-
+import datetime
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.secret_key = 'supersecretkey'
@@ -23,7 +23,7 @@ def upload_file():
         flash('No selected file')
         return redirect(url_for('home'))
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        filename = secure_filename(f"{datetime.datetime.now()}"+file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         file_url = url_for('uploaded_file', filename=filename)
@@ -36,5 +36,5 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0',port=8080)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
