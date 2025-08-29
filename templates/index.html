@@ -1,105 +1,209 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="This website is for sharing images for free. Website author is Joy Sutradhar.">
-    <title>MyPic</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #dcf1ff;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .card {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary {
-            border-radius: 20px;
-        }
-        .navbar {
-            margin-bottom: 30px;
-        }
-        .footer {
-            background-color: #131f2e;
-            color: rgb(227, 227, 255);
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b2545" />
+  <meta name="description" content="MyPic — free image sharing and hosting by Joy Sutradhar. Upload, preview, and share images quickly and securely." />
+  <meta name="keywords" content="image sharing, free image host, upload images, Joy Sutradhar,MetaxSouL, MyPic" />
+  <meta name="author" content="Joy Sutradhar" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:site_name" content="MyPic" />
+  <meta property="og:title" content="MyPic — Free Image Sharing" />
+  <meta property="og:description" content="Upload and share your images for free. Created by Joy Sutradhar." />
+  <meta property="og:type" content="website" />
+  <!-- if an image is available after upload, Flask will render it into this tag -->
+  {% if file_url %}
+  <meta property="og:image" content="{{ file_url }}" />
+  {% endif %}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MyPic — Free Image Sharing" />
+  <meta name="twitter:description" content="Upload and share your images for free. Created by Joy Sutradhar." />
+
+  <link rel="canonical" href="https://mypics.metaxsoul.store/" />
+  <title>MyPic — Free Image Sharing | MetaXsouL</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ImageGallery",
+    "name":"MyPic",
+    "description":"Free image sharing and hosting by Joy Sutradhar.",
+    "url":"https://mypics.metaxsoul.store/",
+    "author": {
+      "@type":"Person",
+      "name":"Joy Sutradhar",
+      "email":"mailto:joysutradharpc@gmail.com"
+    }
+  }
+  </script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: #ffffff !important;
+    }
+    .navbar-brand, .nav-link {
+      color: #000000 !important;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #6c4df7 !important;
+      transition: color 0.3s ease;
+    }
+
+    .container {
+      margin-top: 70px;
+      flex: 1;
+    }
+
+    .card {
+      padding: 25px;
+      border-radius: 15px;
+      border: none;
+      background: #edffff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    h1, h2, h4, h5 {
+      color: #0d47a1;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      border-radius: 25px;
+      padding: 10px 25px;
+      font-size: 16px;
+      font-weight: 500;
+      background: linear-gradient(90deg, #1565c0, #1e88e5);
+      border: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #1e88e5, #42a5f5);
+      transform: scale(1.05);
+    }
+
+    .messages {
+      margin-top: 20px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .uploaded-img {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .uploaded-img:hover {
+      transform: scale(1.02);
+    }
+
+    .footer {
+      background: #fcfdff;
+      color: #000000;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    .footer a {
+      color: #3ba7ff;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">MyPic</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="mailto:joysutradharpc@gmail.com">Contact</a>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Upload</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-       <h4>MyPic</h4>
-       <h5>is a image sharing website. You can upload your images here for free.</h5>
-        <div class="card">
-            <h1 class="card-title">Upload an Image</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="file" class="form-control-file" name="file" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </form>
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <div class="alert alert-info messages">
-                  <ul>
-                    {% for message in messages %}
-                      <li>{{ message }}</li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
-            {% endwith %}
-        </div>
-        {% if file_url %}
-        <div class="card mt-4">
-            <h2 class="card-title">Uploaded File</h2>
-            <p>Your file has been uploaded successfully. You can access/share it with this link <a href="{{ file_url }}" target="_blank">here</a></p>
-            <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid mt-3" height="200 px" width="300 px">
-        </div>
-        {% endif %}
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">MyPic</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="mailto:joysutradharpc@gmail.com">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="/">Upload</a></li>
+      </ul>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <span>&copy; 2025 MyPic. All rights reserved. Author: Joy Sutradhar
-                <a href="mailto:joysutradharpc@gmail.com">Send email</a>
-            </Address></span>
-            <!-- <span><Address>Author: Joy Sutradhar
-                <a href="mailto:joysutradharpc@gmail.com">Send email</a>
-            </Address></span> -->
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container text-center">
+    <h4>Welcome to <span class="text-primary">MyPic</span></h4>
+    <h5 class="mb-4">A free image sharing platform by MetaXsouL.</h5>
+
+    <div class="card">
+      <h1 class="card-title mb-4">Upload an Image</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" class="form-control-file" name="file" required>
         </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-info messages">
+            <ul class="mb-0">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% if file_url %}
+    <div class="card mt-5">
+      <h2 class="card-title">Uploaded File</h2>
+      <p>Your file has been uploaded successfully.  
+         Share it using this link: <a href="{{ file_url }}" target="_blank">View Image</a>
+      </p>
+      <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid uploaded-img mt-3" style="max-width:400px;">
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <span>&copy; 2025 MyPic. All rights reserved. Author: Joy Sutradhar |
+        <a href="mailto:joysutradharpc@gmail.com">Send Email</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
