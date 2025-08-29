@@ -37,7 +37,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MyPic</a>
+        <a class="navbar-brand" href="/">MyPic</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -83,7 +83,7 @@
         {% if file_url %}
         <div class="card mt-4">
             <h2 class="card-title">Uploaded File</h2>
-            <p>Your file has been uploaded successfully. You can access it <a href="{{ file_url }}" target="_blank">here</a></p>
+            <p>Your file has been uploaded successfully. You can access/share it with this link <a href="{{ file_url }}" target="_blank">here</a></p>
             <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid mt-3" height="200 px" width="300 px">
         </div>
         {% endif %}
