@@ -1,6 +1,6 @@
 # MyPic - Image Sharing Website
 App is live https://mypics4u.onrender.com/
-[![image.png](https://i.postimg.cc/G3sKMkp0/image.png)](https://postimg.cc/JtMj0HJK)
+[![image.png](https://mypics.metaxsoul.store/uploads/2025-08-29_132225.858240mypics.metaxsoul.store_iPhone_14_Pro_Max.png)](https://postimg.cc/JtMj0HJK)
 MyPic is a web application for sharing images for free. The website allows users to upload images and provides a link to access the uploaded images. The website is authored by Joy Sutradhar.
 
 ## Features
